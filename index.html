@@ -1,84 +1,84 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>職員室 注文フォーム</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <meta charset="UTF-8">
+    <title>職員室 注文フォーム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
-  <h2>お菓子・飲み物 注文フォーム</h2>
+    <h2>お菓子・飲み物 注文フォーム</h2>
 
-  <label>職員室：</label>
-  <select id="room">
-    <option value="職員室">職員室</option>
-    <option value="商業センター">商業センター</option>
-    <option value="進路指導室">進路指導室</option>
-    <option value="生徒指導室">生徒指導室</option>
-    <option value="事務室">事務室</option>
-  </select><br><br>
+    <label>職員室：</label>
+    <select id="room">
+        <option value="職員室">職員室</option>
+        <option value="商業センター">商業センター</option>
+        <option value="進路指導室">進路指導室</option>
+        <option value="生徒指導室">生徒指導室</option>
+        <option value="事務室">事務室</option>
+    </select><br><br>
 
-  <label>商品：</label>
-  <select id="item">
-    <option value="コーヒー">コーヒー</option>
-    <option value="紅茶">紅茶</option>
-    <option value="クッキー">クッキー</option>
-    <option value="チョコ">チョコ</option>
-  </select><br><br>
+    <label>商品：</label>
+    <select id="item">
+        <option value="コーヒー">コーヒー</option>
+        <option value="紅茶">紅茶</option>
+        <option value="クッキー">クッキー</option>
+        <option value="チョコ">チョコ</option>
+    </select><br><br>
 
-  <label>数量：</label>
-  <input type="number" id="quantity" value="1" min="1" max="10"><br><br>
+    <label>数量：</label>
+    <input type="number" id="quantity" value="1" min="1" max="10"><br><br>
 
-  <button id="orderBtn">注文する</button>
+    <button id="orderBtn">注文する</button>
 
-  <script>
-    // ★ここにあなたのGAS WebアプリURLを入れてください
-    const GAS_URL = 'https://script.google.com/macros/s/★ここに貼る★/exec';
+    <script>
+        // ★ここにあなたのGAS WebアプリURLを入れてください
+        const GAS_URL = 'https://imaoka05.github.io/liff-order-app/';
 
-    // ★ここにLINE Developersで発行されたLIFF IDを入れてください
-    liff.init({ liffId: '★ここにLIFF ID★' })
-      .then(() => {
-        document.getElementById('orderBtn').addEventListener('click', () => {
-          const room = document.getElementById('room').value;
-          const item = document.getElementById('item').value;
-          const quantity = parseInt(document.getElementById('quantity').value);
+        // ★ここにLINE Developersで発行されたLIFF IDを入れてください
+        liff.init({ liffId: '★ここにLIFF ID★' })
+            .then(() => {
+                document.getElementById('orderBtn').addEventListener('click', () => {
+                const room = document.getElementById('room').value;
+                const item = document.getElementById('item').value;
+                const quantity = parseInt(document.getElementById('quantity').value);
 
-          liff.getProfile().then(profile => {
-            const name = profile.displayName;
+                liff.getProfile().then(profile => {
+                    const name = profile.displayName;
 
-            const payload = {
-              name: name,
-              room: room,
-              item: item,
-              quantity: quantity
-            };
+                    const payload = {
+                    name: name,
+                    room: room,
+                    item: item,
+                    quantity: quantity
+                    };
 
-            fetch(GAS_URL, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(payload)
-            })
-            .then(response => response.json())
-            .then(data => {
-              if (data.status === 'success') {
-                alert('注文を受け付けました！');
-                liff.closeWindow();
-              } else {
-                alert('注文に失敗しました。');
-              }
-            })
-            .catch(error => {
-              console.error(error);
-              alert('通信エラーが発生しました。');
+                    fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': '2007744793-a5VbnQX2'
+                    },
+                    body: JSON.stringify(payload)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                    if (data.status === 'success') {
+                        alert('注文を受け付けました！');
+                        liff.closeWindow();
+                    } else {
+                        alert('注文に失敗しました。');
+                    }
+                    })
+                    .catch(error => {
+                    console.error(error);
+                    alert('通信エラーが発生しました。');
+                    });
+                });
             });
-          });
-        });
-      })
-      .catch(err => {
-        console.error('LIFF初期化エラー:', err);
-      });
-  </script>
+            })
+            .catch(err => {
+                console.error('LIFF初期化エラー:', err);
+            });
+    </script>
 </body>
 </html>
